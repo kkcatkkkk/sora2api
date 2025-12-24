@@ -290,6 +290,90 @@ curl -X POST "http://localhost:8000/v1/chat/completions" \
   }'
 ```
 
+### 视频风格功能
+
+Sora2API 支持**视频风格**功能，可以为生成的视频应用预设风格。
+
+#### 使用方法
+
+在提示词中使用 `{风格ID}` 格式指定风格，系统会自动提取并应用该风格。
+
+#### 支持的风格
+
+| 风格ID | 显示名称 | 说明 |
+|--------|----------|------|
+| `festive` | Festive | 节日风格 |
+| `kakalaka` | 🪭👺 | 混沌风格 |
+| `news` | News | 新闻风格 |
+| `selfie` | Selfie | 自拍风格 |
+| `handheld` | Handheld | 手持风格 |
+| `golden` | Golden | 金色风格 |
+| `anime` | Anime | 动漫风格 |
+| `retro` | Retro | 复古风格 |
+| `nostalgic` | Vintage | 怀旧风格 |
+| `comic` | Comic | 漫画风格 |
+
+#### 示例
+
+**使用动漫风格生成视频**
+
+```bash
+curl -X POST "http://localhost:8000/v1/chat/completions" \
+  -H "Authorization: Bearer han1234" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "sora-video-landscape-10s",
+    "messages": [
+      {
+        "role": "user",
+        "content": "{anime}一只小猫在草地上奔跑"
+      }
+    ],
+    "stream": true
+  }'
+```
+
+**使用复古风格生成视频**
+
+```bash
+curl -X POST "http://localhost:8000/v1/chat/completions" \
+  -H "Authorization: Bearer han1234" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "sora-video-landscape-10s",
+    "messages": [
+      {
+        "role": "user",
+        "content": "{retro}城市街道夜景"
+      }
+    ],
+    "stream": true
+  }'
+```
+
+**在Remix中使用风格**
+
+```bash
+curl -X POST "http://localhost:8000/v1/chat/completions" \
+  -H "Authorization: Bearer han1234" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "sora-video-landscape-10s",
+    "messages": [
+      {
+        "role": "user",
+        "content": "{comic}https://sora.chatgpt.com/p/s_68e3a06dcd888191b150971da152c1f5改成漫画风格"
+      }
+    ],
+    "stream": true
+  }'
+```
+
+**注意事项**
+- 风格标记 `{风格ID}` 可以放在提示词的任意位置
+- 系统会自动提取风格ID并从提示词中移除风格标记
+- 如果不指定风格，将使用默认风格生成
+
 ### 视频角色功能
 
 Sora2API 支持**视频角色生成**功能。
